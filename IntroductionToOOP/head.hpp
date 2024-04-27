@@ -1,6 +1,12 @@
 #ifndef HEAD_HPP_
 #define HEAD_HPP_
 #include<iostream>
+#include<cmath>
+
+class Point;
+
+    double distance(const Point& _arg);
+    double distance(const Point& _a, const Point& _b);
 
 class Point{
     private:
