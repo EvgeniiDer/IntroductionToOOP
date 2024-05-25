@@ -9,9 +9,18 @@ class Fraction{
         int numerator;
         int denominator;
     public:
-        int get_integer();
-        int get_numerator();
-        int get_denominator();
+        int get_integer()
+        {
+            return integer;
+        }
+        int get_numerator()
+        {
+            return numerator;
+        }
+        int get_denominator()
+        {
+            return denominator;
+        }
         void set_integer(const int& _arg)
         {
             integer = _arg;
@@ -28,14 +37,14 @@ class Fraction{
                     numerator(0),
                     denominator(1){}
         Fraction(const int& _integer, const int& _numerator, const int& _denominator): integer(_integer),
-                                                                                      numerator(_numerator),
+                                                                                        numerator(_numerator),
                                                                                       denominator(_denominator){}
         
         Fraction(const Fraction& _arg);
         Fraction(Fraction&& _arg);
         Fraction& operator=(const Fraction& _arg);
         Fraction& operator=(Fraction&& _arg);
-        ~Fraction(){};
+        ~Fraction(){}
         Fraction& operator+(const Fraction& _arg);
         Fraction& operator-(const Fraction& _arg);
         Fraction& operator*(const Fraction& _arg);
