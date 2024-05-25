@@ -2,7 +2,12 @@
 
 int main()
 {
-    Fraction A(3, 4, 5);
-    std::cout << A << std::endl;
+    Fraction A(4, 5, 2);
+    Fraction B(5, 2, 5);
+    B = A + B;
+    std::cout << B << std::endl;
+    B--;
+    bool temp = A < B;
+    std::cout << temp << std::endl;
     return 0;
 }
