@@ -2,7 +2,7 @@
 #define HEAD_HPP_
 #include<iostream>
 #include<string>
-
+#include<cmath>
 class Fraction{
     private:
         int integer;
@@ -42,6 +42,14 @@ class Fraction{
         Fraction(const int& _numerator, const int& _denumerator) : integer(0),
                                                                    numerator(_numerator),
                                                                    denominator(_denumerator){}
+        Fraction(double _number)
+        {
+		_number += 1e-10;
+		integer = _number;	
+		denominator = 1e+9;	
+		_number -= integer; 
+		reduce();
+        }
         Fraction& to_proper()
 	{
 		integer += numerator / denominator;
@@ -64,8 +72,10 @@ class Fraction{
 	    Fraction& reduce()
 	        {
 		        int more, less, rest;
-		        if (numerator > denominator)more = numerator, less = denominator;
-		        else less = numerator, more = denominator;
+		        if (numerator > denominator)
+                    more = numerator, less = denominator;
+		        else 
+                    less = numerator, more = denominator;
 		    do
 		        {
 			    rest = more % less;
@@ -81,6 +91,10 @@ class Fraction{
         Fraction(Fraction&& _arg);
         Fraction& operator=(const Fraction& _arg);
         Fraction& operator=(Fraction&& _arg);
+        operator double()
+        {
+            return static_cast<double>(integer) + (static_cast<double>(numerator) / static_cast<double>(denominator));
+        }
         ~Fraction(){}
 
         Fraction& operator+(Fraction& _arg);
@@ -105,7 +119,9 @@ class Fraction{
         bool operator!=(Fraction& _arg);
         bool operator<(Fraction& _arg);
         bool operator>(Fraction& _arg);
+        
 
 };
 
 #endif
+
