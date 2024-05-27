@@ -33,9 +33,19 @@ class Matrix{
             free_memory(matrix, m_row);
             std::cout << "Destructor Done...." << std::endl;
         }
-
+        Matrix& operator+(const Matrix& _obj);
+        Matrix& operator-(const Matrix& _obj);
+        Matrix& operator*(const Matrix& _obj);
+        Matrix& operator/(const Matrix& _obj);
+        Matrix& operator+=(const Matrix& _obj);
+        Matrix& operator-=(const Matrix& _obj);
+        Matrix& operator*=(const Matrix& _obj);
+        Matrix& operator/=(const Matrix& _obj);
+        
         int operator()(const int& _i, const int& _j)const; //overload[][]
         int& operator()(const int& _i, const int& _j);//overload[][]
         friend std::ostream& operator<<(std::ostream& os, const Matrix& _obj);
 };
+bool operator==(const Matrix& objL, const Matrix& objR);
+bool operator!=(const Matrix& objL, const Matrix& objR);
 #endif

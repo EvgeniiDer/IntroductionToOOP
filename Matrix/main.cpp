@@ -2,10 +2,9 @@
 
 int main()
 {
-    Matrix m(11);
-    Matrix m2 = m;
-    Matrix m4;
-    Matrix d4;
-    std::cout << m2 << std::endl;
+    Matrix m1(1);
+    Matrix m2;
+    bool b = m2 != m1;
+    std::cout << b << std::endl;
     return 0;
 }
