@@ -8,11 +8,11 @@ class Matrix{
         int m_colms;
         int** matrix;
     public:
-        int get_row()
+        int get_row()const
         {
             return m_row;
         }
-        int get_colms()
+        int get_colms()const
         {
             return m_colms;
         }
@@ -25,8 +25,8 @@ class Matrix{
             m_colms = c;
         }
         explicit Matrix() : m_row(100),
-                   m_colms(100),
-                   matrix(new int*[m_row])
+                            m_colms(100),
+                            matrix(new int*[m_row])
                  {
                     for(int i = 0; i < m_row; i++)
                         matrix[i] = new int[m_colms];
@@ -43,29 +43,62 @@ class Matrix{
                 delete[] matrix[i];
             delete[]matrix;
         }
+        int operator()(const int& _i, const int& _j)const{
+            return matrix[_i][_j];
+        }
+        int& operator()(const int& _i, const int& _j){
+            return matrix[_i][_j];
+        }
+
 };
 
 struct Figure{
     virtual ~Figure(){};
 
-    virtual void draw() = 0;
+    //virtual void draw() = 0;
 };
 class Point{
     private:
         int x, y;
     public:
-        explicit Point() : x(0.0), y(0.0){};
-        explicit Point(const int& _x, const int& _y): x(_x), y(_y){};
+        int get_x()const
+        {
+            return x;
+        }
+        int get_y()const
+        {
+            return y;
+        }
+        void set_x(const int& _x)
+        {
+            x = _x;
+        }
+        void set_y(const int& _y)
+        {
+            y = _y;
+        }
+        explicit Point() : x(0), y(0){};
+        explicit Point(const int& _x = 1, const int& _y = 1): x(_x), y(_y){};
 };
 class Line: public Figure{
     private:
         Point x, y;
     public:
+        Point get_x()const
+        {
+            return x;
+        }
+        Point get_y()const
+        {
+            return y;
+        }
+
         explicit Line() : x(Point(0 , 0)),
                  y(Point(0 , 0)){}
         explicit Line(const Point& _x, const Point& _y) : x(_x),
                                                  y(_y){}
-        virtual void draw(const Matrix& _mat, const Point& _x, const Point& _y);
+        //virtual void draw()override;
+        void draw(const Matrix& _mat, Point& _x, Point& _y);
 };
 /*class Rectangle: public Figure{
     private:
