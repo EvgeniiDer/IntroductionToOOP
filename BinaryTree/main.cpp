@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
-
+#include <chrono>
 struct Node {
     int data;
     Node* left;
@@ -67,24 +67,12 @@ public:
     }
 
     // Балансировка дерева
- void balance() {
-    std::vector<int> values;
-    storeInOrder(root, values); // Сохраняем элементы в отсортированном порядке
-    clear(); // Очищаем текущее дерево
-    balanceRec(values, 0, values.size() - 1); // Создаем сбалансированное дерево
-}
-
-void balanceRec(const std::vector<int>& values, int start, int end) {
-    if (start > end) return;
-
-    int mid = (start + end) / 2; // Находим средний элемент
-    insert(values[mid]); // Вставляем средний элемент в дерево
-
-    // Рекурсивно балансируем левую и правую части
-    balanceRec(values, start, mid - 1); // Левое поддерево
-    balanceRec(values, mid + 1, end); // Правое поддерево
-}
-
+    void balance() {
+        std::vector<int> values;
+        storeInOrder(root, values); // Сохраняем элементы в отсортированном порядке
+        clear(); // Очищаем текущее дерево
+        balanceRec(values, 0, values.size() - 1); // Создаем сбалансированное дерево
+    }
 
     // Обход дерева (инфиксный обход)
     void inorder() {
@@ -176,7 +164,16 @@ private:
         }
     }
 
+    void balanceRec(const std::vector<int>& values, int start, int end) {
+        if (start > end) return;
 
+        int mid = (start + end) / 2; // Находим средний элемент
+        insert(values[mid]); // Вставляем средний элемент в дерево
+
+        // Рекурсивно балансируем левую и правую части
+        balanceRec(values, start, mid - 1); // Левое поддерево
+        balanceRec(values, mid + 1, end); // Правое поддерево
+    }
 
     void inorderRec(Node* node) {
         if (node != nullptr) {
@@ -206,7 +203,7 @@ int main() {
     tree.insert(12);
 
     std::cout << "Элементы дерева (инфиксный обход): ";
-    tree.inorder(); // Вывод: 1 2 3 4
+    tree.inorder(); // Вывод: 1 2 3 4 5 12
 
     std::cout << "Минимальное значение: " << tree.minValue() << std::endl;
     std::cout << "Максимальное значение: " << tree.maxValue() << std::endl;
@@ -227,5 +224,14 @@ int main() {
     tree.clear();
     std::cout << "Дерево очищено. Количество элементов: " << tree.count() << std::endl;
 
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+
+    tree.insert(1000000);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    std::cout << "Продолжительность " << duration.count() << " секунд" << std::endl;
     return 0;
 }
